@@ -3,7 +3,7 @@
 #include <avr/interrupt.h>
 
 void sda(int pin);
-int get_sda();
+int get_sda(void);
 void scl(int pin);
 struct {
     volatile enum {
@@ -48,4 +48,5 @@ struct {
 } i2c_state;
 
 void i2c_transfer(uint8_t addr, uint8_t *buf, int len);
-int i2c_async();
+int i2c_async(void);
+void i2c_isr(void);

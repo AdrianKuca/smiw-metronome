@@ -1,7 +1,4 @@
-
-#include <avr/io.h>
-#include <util/delay.h>
-#include <avr/interrupt.h>
+#include "i2c.h"
 
 void sda(int pin)
 {
@@ -39,10 +36,8 @@ int i2c_async()
     return i2c_state.proc == IC_IDLE;
 }
 
-ISR(TIMER0_OVF_vect)
+void i2c_isr()
 {
-    PORTB += 1;
-
     switch (i2c_state.proc)
     {
         // Start
