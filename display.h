@@ -1,14 +1,8 @@
 #include <stdint.h>
-uint8_t digits[] = {
-	192,
-	249,
-	164,
-	176,
-	153,
-	146,
-	130,
-	248,
-	128,
-	144
-};
-void display_digit(uint8_t digit);
+#include <avr/io.h>
+
+void prepare_display(void);
+void display_digit(uint8_t digit, uint8_t current_segment);
+uint8_t* number_to_digits(uint8_t number, uint8_t *ret);
+void display_number(uint8_t number);
+uint8_t display_isr(void);
