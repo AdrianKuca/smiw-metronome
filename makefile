@@ -3,8 +3,8 @@ ARCH         = AVR8
 F_CPU        = 4000000
 OPTIMIZATION = s
 TARGET       = main
-SRC          = $(TARGET).c
-CC_FLAGS     =
+SRC          = $(TARGET).c i2c.c display.c
+CC_FLAGS     = -Wall -Werror
 LD_FLAGS     =
 AVRDUDE_PROGRAMMER = usbasp
 
@@ -12,7 +12,7 @@ AVRDUDE_PROGRAMMER = usbasp
 all:
 
 # Include DMBS build script makefiles
-DMBS_PATH   ?= ../dmbs/DMBS
+DMBS_PATH   ?= ../avtkurs/dmbs/DMBS
 include $(DMBS_PATH)/core.mk
 include $(DMBS_PATH)/gcc.mk
 include $(DMBS_PATH)/cppcheck.mk
