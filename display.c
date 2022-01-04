@@ -33,7 +33,7 @@ void prepare_display(){
 
 void display_digit(uint8_t segmented_digit, uint8_t current_segment){
     PORTB = segmented_digit;
-    PORTD = ~(0b10000111) & ~(1 << (current_segment + 3)); // Enable single segment 0 1 2 3 (from right)
+    PORTD = (PORTD & (1<<2)) | (~(0b10000111) & ~(1 << (current_segment + 3))); // Enable single segment 0 1 2 3 (from right)
 }
 
 uint8_t* number_to_digits(uint8_t number, uint8_t *digits){
@@ -57,23 +57,23 @@ uint8_t display_isr()
         case D_FIRST_DIGIT:
             DDRD = 0xff;
             display_digit(display_state.digits[0],0);
-            _delay_ms(10);
+            _delay_ms(3);
             display_state.proc = D_SECOND_DIGIT;
         break;  
         case D_SECOND_DIGIT:
             display_digit(display_state.digits[1],1);
-            _delay_ms(10);
+            _delay_ms(3);
             display_state.proc = D_THIRD_DIGIT;
         break;
         case D_THIRD_DIGIT:
             display_digit(display_state.digits[2],2);
-            _delay_ms(10);
+            _delay_ms(3);
             display_state.proc = D_IDLE;
         break;
         case D_IDLE:
             PORTB = 0xff;
-            PORTD = 0x00;
-            DDRD = 0x00;
+            PORTD &= (0b10000111);
+            DDRD = 0x14;
             display_state.proc = D_FIRST_DIGIT;
         break;
     }
