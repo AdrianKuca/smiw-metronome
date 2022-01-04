@@ -27,9 +27,7 @@ uint8_t segment_digits[] = {
 
 void prepare_display(){
     DDRB=0xFF;
-    //DDRD=0xFF;
     PORTB = 0xff;
-	//PORTD = PORTD & ~(0b1111000); // Disable all four segments
     display_state.proc = D_FIRST_DIGIT;
 }
 
